@@ -1,0 +1,243 @@
+Source: firefox-esr
+Section: web
+Priority: optional
+Maintainer: Maintainers of Mozilla-related packages <team+pkg-mozilla@tracker.debian.org>
+Uploaders: Mike Hommey <glandium@debian.org>
+Build-Depends: autotools-dev,
+%if DIST == wheezy || DIST == jessie
+               debhelper (>= 9),
+%else
+               debhelper (>= 9.20160114),
+%endif
+%if DIST == wheezy
+               gcc-mozilla,
+%endif
+%if DIST == buster || DIST == experimental
+               gcc-6,
+               g++-6,
+%endif
+               autoconf2.13,
+               libx11-dev,
+               libx11-xcb-dev,
+               libxt-dev,
+%if GTK3
+               libgtk-3-dev,
+%endif
+               libgtk2.0-dev (>= 2.10),
+               libglib2.0-dev (>= 2.16.0),
+               libstartup-notification0-dev,
+               libjpeg-dev,
+%if USE_SYSTEM_ZLIB
+               zlib1g-dev,
+%endif
+%if USE_SYSTEM_BZ2
+               libbz2-dev,
+%endif
+               libreadline-dev,
+               python2.7,
+               python-minimal (>= 2.6.6-13~),
+               python-ply,
+               dpkg-dev (>= 1.16.1.1~),
+%if USE_SYSTEM_NSPR
+               libnspr4-dev (>= 2:4.13.1~),
+%endif
+%if USE_SYSTEM_NSS
+               libnss3-dev (>= 2:3.28.5~),
+%endif
+%if USE_SYSTEM_SQLITE
+               libsqlite3-dev (>= 3.17.0),
+%endif
+%if USE_SYSTEM_VPX
+               libvpx-dev (>= 1.5.0),
+%endif
+%if USE_SYSTEM_HUNSPELL
+               libhunspell-dev (>= 1.2),
+%endif
+               libdbus-glib-1-dev,
+               libasound2-dev [linux-any],
+               libiw-dev [linux-any],
+               libnotify-dev,
+%if USE_SYSTEM_FFI
+               libffi-dev,
+%endif
+%if USE_SYSTEM_LIBEVENT
+               libevent-dev (>= 1.4.1),
+%endif
+               libjsoncpp-dev,
+               mesa-common-dev,
+               libpulse-dev,
+               yasm (>= 1.1),
+%if RUST
+               rustc (>= 1.10) [amd64 i386],
+               cargo (>= 0.13) [amd64 i386],
+%endif
+               zip,
+               unzip,
+               locales,
+               xvfb,
+               xfonts-base,
+               xauth,
+               ttf-bitstream-vera,
+               fonts-freefont-ttf,
+               fonts-dejima-mincho,
+               iso-codes
+Build-Conflicts: graphicsmagick-imagemagick-compat,
+                 liboss4-salsa-dev,
+                 libhildonmime-dev,
+                 libosso-dev
+Standards-Version: 3.9.8.0
+Vcs-Git: https://salsa.debian.org/mozilla-team/firefox.git -b @SHORT_SOURCE_CHANNEL@/master
+Vcs-Browser: https://salsa.debian.org/mozilla-team/firefox/commits/@SHORT_SOURCE_CHANNEL@/master
+
+Package: @browser@
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         fontconfig,
+         procps,
+         debianutils (>= 1.16),
+         libsqlite3-0 (>= 3.7.12-1~)
+Suggests: fonts-stix | otf-stix,
+          fonts-lmodern,
+          mozplugger,
+          libgssapi-krb5-2 | libkrb53,
+          libcanberra0
+Conflicts: j2re1.4,
+           pango-graphite (<< 0.9.3),
+%if TRANSITION
+           iceweasel (<< 45)
+%endif
+Breaks: xul-ext-torbutton
+Provides: www-browser,
+          gnome-www-browser
+%define RAW_DESCRIPTION Mozilla Firefox web browser
+%define LONGDESC1 @Browser@ is a powerful, extensible web browser with support for modern
+%define LONGDESC2 web application technologies.
+%define firefox_esr firefox-esr
+%if browser == firefox_esr
+%define DESCRIPTION @RAW_DESCRIPTION@ - Extended Support Release (ESR)
+%else
+%define DESCRIPTION @RAW_DESCRIPTION@
+%endif
+Description: @DESCRIPTION@
+ @LONGDESC1@
+ @LONGDESC2@
+%if TRANSITION
+
+Package: iceweasel
+Architecture: all
+Priority: extra
+Section: oldlibs
+Depends: @browser@, ${misc:Depends}
+Description: Web browser based on Firefox - Transitional package
+ This is a transitional package, it can be safely removed.
+%endif
+
+%if DIST == wheezy || DIST == jessie
+Package: @browser@-dbg
+Architecture: any
+Priority: extra
+Section: debug
+Depends: @browser@ (= ${binary:Version}),
+%if USE_SYSTEM_NSS
+         libnss3-dbg | libnss3-1d-dbg,
+%endif
+%if USE_SYSTEM_NSPR
+         libnspr4-dbg | libnspr4-0d-dbg,
+%endif
+         ${misc:Depends}
+%if TRANSITION
+Breaks: iceweasel-dbg (<< 45)
+Replaces: iceweasel-dbg (<< 45)
+Provides: iceweasel-dbg
+%endif
+Description: Debugging symbols for @Browser@
+ @LONGDESC1@
+ @LONGDESC2@
+ .
+ This package contains the debugging symbols for @browser@.
+%if TRANSITION
+
+Package: iceweasel-dbg
+Architecture: all
+Priority: extra
+Section: oldlibs
+Depends: @browser@-dbg, ${misc:Depends}
+Description: Debugging symbols for Iceweasel - Transitional package
+ This is a transitional package, it can be safely removed.
+%endif
+%endif
+
+Package: @browser@-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         python-ply,
+%if USE_SYSTEM_NSS
+         libnss3-dev,
+%endif
+%if USE_SYSTEM_NSPR
+         libnspr4-dev,
+%endif
+         @browser@ (= ${binary:Version})
+Conflicts: xulrunner-dev,
+%if browser != firefox
+           firefox-dev
+%endif
+%if TRANSITION
+Breaks: iceweasel-dev (<< 45)
+Replaces: iceweasel-dev (<< 45)
+Provides: iceweasel-dev
+%endif
+Description: Development files for the Gecko engine library
+ This library provides an  API for XUL applications and Gecko embedders.
+ The Gecko engine is the core of the mozilla.org applications such as
+ Firefox, Thunderbird or SeaMonkey.
+ .
+ Gecko features include XPCOM, networking, DOM editing and transaction
+ support, XBL, XUL, SVG, XSLT, XML Extras (XMLHttpRequest and DOMParser),
+ Web Services (SOAP), accessibility support, IPC services, gtkmozembed, etc.
+ .
+ Install this package if you wish to embed the Gecko engine in your
+ program or want to develop XPCOM components.
+ .
+ This package also provides the Xulrunner Software Development Kit in the
+ same form as the one you may find on mozilla.org in /usr/lib/xulrunner/sdk.
+Homepage: http://wiki.mozilla.org/XUL:Lib_XUL
+%if TRANSITION
+
+Package: iceweasel-dev
+Architecture: all
+Priority: extra
+Section: oldlibs
+Depends: @browser@-dev, ${misc:Depends}
+Description: Development files for the Gecko engine library - Transitional package
+ This is a transitional package, it can be safely removed.
+%endif
+
+Package: @browser@-l10n-all
+Architecture: all
+Section: metapackages
+Depends: ${misc:Depends}, @L10N_PACKAGES_DEPS@
+%if TRANSITION
+Breaks: iceweasel-l10n-all (<< 45)
+Replaces: iceweasel-l10n-all (<< 45)
+Provides: iceweasel-l10n-all
+%endif
+Description: All language packages for @Browser@ (meta)
+ @LONGDESC1@
+ @LONGDESC2@
+ .
+ This is a metapackage depending on all available localizations of @Browser@.
+%if TRANSITION
+
+Package: iceweasel-l10n-all
+Architecture: all
+Priority: extra
+Section: oldlibs
+Depends: @browser@-l10n-all, ${misc:Depends}
+Description: All language packages for Iceweasel - Transitional package
+ This is a transitional package, it can be safely removed.
+%endif
+%include l10n/browser-l10n.control

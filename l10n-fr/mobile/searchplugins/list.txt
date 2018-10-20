@@ -1,0 +1,7 @@
+bing
+duckduckgo
+google
+qwant
+twitter
+wikipedia-fr
+yahoo-france

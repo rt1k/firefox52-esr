@@ -1,0 +1,7 @@
+amazon-in
+bing
+duckduckgo
+google
+wikipedia-ta
+wiktionary-ta
+yahoo-in
