@@ -80,7 +80,7 @@ ac_add_options --enable-jemalloc
 ac_add_options --disable-ion
 #mk_add_options MOZ_MAKE_FLAGS="-j2"
 
-ac_add_options --enable-optimize="-pipe -O3 -mcpu=G5 -mtune=G5"
+ac_add_options --enable-optimize="-pipe -O2 -mcpu=G5 -mtune=G5"
 ac_add_options --without-intl-api
 
 mk_add_options PYTHON=/usr/bin/python2
