@@ -160,7 +160,15 @@ GfxFormatToCairoFormat(SurfaceFormat format)
     case SurfaceFormat::R5G6B5_UINT16:
       return CAIRO_FORMAT_RGB16_565;
     default:
-      gfxCriticalError() << "Unknown image format " << (int)format;
+      //gfxCriticalError() << "Unknown image format " << (int)format;
+      // _UINT32 formats don't match B8G8R8[AX]8 on big-endian platforms,
+      // and Moz2d uses B8G8R8[AX]8 as if it was _UINT32.
+      // See bug 1269654
+      if (format == SurfaceFormat::B8G8R8X8) {
+        return CAIRO_FORMAT_RGB24;
+      } else if (format != SurfaceFormat::B8G8R8A8) {
+        gfxCriticalError() << "Unknown image format " << (int)format;
+      }
       return CAIRO_FORMAT_ARGB32;
   }
 }
@@ -178,7 +186,12 @@ GfxFormatToCairoContent(SurfaceFormat format)
     case SurfaceFormat::A8:
       return CAIRO_CONTENT_ALPHA;
     default:
-      gfxCriticalError() << "Unknown image content format " << (int)format;
+      //gfxCriticalError() << "Unknown image content format " << (int)format;
+      if (format == SurfaceFormat::B8G8R8X8) {
+        return CAIRO_CONTENT_COLOR;
+      } else if (format != SurfaceFormat::B8G8R8A8) {
+        gfxCriticalError() << "Unknown image content format " << (int)format;
+      }
       return CAIRO_CONTENT_COLOR_ALPHA;
   }
 }
