@@ -56,31 +56,34 @@ ac_add_options --enable-rust
 %endif
 ac_add_options --enable-alsa
 
-ac_add_options --with-pthreads
+#ac_add_options --with-pthreads **
 ac_add_options --disable-tests
 ac_add_options --enable-necko-wifi
 ac_add_options --enable-chrome-format=omni
 ac_add_options --enable-pulseaudio
 
+#**
+ac_add_options --disable-strip 
+
 # Workaround for mozbz#1341234
-ac_add_options BINDGEN_CFLAGS="$(pkg-config nspr pixman-1 --cflags)"
+#ac_add_options BINDGEN_CFLAGS="$(pkg-config nspr pixman-1 --cflags)" **
 ac_add_options --enable-official-branding
-ac_add_options --disable-gold
+#ac_add_options --disable-gold
 ac_add_options --disable-install-strip
 
 export BUILD_OFFICIAL=1
 export MOZILLA_OFFICIAL=1
 export MOZ_TELEMETRY_REPORTING=1
-mk_add_options BUILD_OFFICIAL=1
-mk_add_options MOZILLA_OFFICIAL=1
 
 # Features
 ac_add_options --disable-crashreporter
 ac_add_options --enable-jemalloc
 ac_add_options --disable-ion
-#mk_add_options MOZ_MAKE_FLAGS="-j2"
 
 ac_add_options --enable-optimize="-pipe -O2 -mcpu=G5 -mtune=G5"
 ac_add_options --without-intl-api
+ac_add_options --with-system-icu
 
-mk_add_options PYTHON=/usr/bin/python2
+#mk_add_options PYTHON=/usr/bin/python2
+mk_add_options BUILD_OFFICIAL=1
+mk_add_options MOZILLA_OFFICIAL=1
