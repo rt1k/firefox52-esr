@@ -106,7 +106,7 @@ CalcTableChecksum(const uint32_t *tableStart, uint32_t length, bool skipChecksum
 }
 
 struct TableRecord {
-    uint32_t tag;
+ScaledFontMac::GetFontFileData(FontFileDataOutput aDataCallback, void *aBaton)    uint32_t tag;
     uint32_t checkSum;
     uint32_t offset;
     uint32_t length;
@@ -159,6 +159,14 @@ struct writeBuf
     int offset;
 };
 
+#ifdef __ppc__
+#define TAG_CFF  0x43464620
+#define TAG_HEAD 0x68656164
+#else
+#define TAG_CFF  0x20464643
+#define TAG_HEAD 0x64616568
+#endif
+
 bool
 ScaledFontMac::GetFontFileData(FontFileDataOutput aDataCallback, void *aBaton)
 {
@@ -180,7 +188,7 @@ ScaledFontMac::GetFontFileData(FontFileDataOutput aDataCallback, void *aBaton)
         records[i].offset = offset;
         records[i].data = data;
         records[i].length = CFDataGetLength(data);
-        bool skipChecksumAdjust = (tag == 0x68656164); // 'head'
+        bool skipChecksumAdjust = (tag == TAG_HEAD); // 'head'
         records[i].checkSum = CalcTableChecksum(reinterpret_cast<const uint32_t*>(CFDataGetBytePtr(data)),
                                                 records[i].length, skipChecksumAdjust);
         offset += records[i].length;
@@ -212,7 +220,7 @@ ScaledFontMac::GetFontFileData(FontFileDataOutput aDataCallback, void *aBaton)
     // write tables
     int checkSumAdjustmentOffset = 0;
     for (CFIndex i = 0; i<count; i++) {
-        if (records[i].tag == 0x68656164) {
+        if (records[i].tag == TAG_HEAD) {
             checkSumAdjustmentOffset = buf.offset + 2*4;
         }
         buf.writeMem(CFDataGetBytePtr(records[i].data), CFDataGetLength(records[i].data));
