@@ -477,7 +477,7 @@ RecyclingPlanarYCbCrImage::CopyData(const Data& aData)
 
   // get new buffer
   mBuffer = AllocateBuffer(size);
-  if (!mBuffer)
+  if (MOZ_UNLIKELY(!mBuffer))
     return false;
 
   // update buffer size

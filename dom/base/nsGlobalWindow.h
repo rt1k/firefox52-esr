@@ -74,7 +74,7 @@
 #define MAX_IDLE_FUZZ_TIME_MS 90000
 
 // Min idle notification time in seconds.
-#define MIN_IDLE_NOTIFICATION_TIME_S 1
+#define MIN_IDLE_NOTIFICATION_TIME_S 5
 
 class nsIArray;
 class nsIBaseWindow;

@@ -6811,12 +6811,12 @@ nsDocShell::ForceRefreshURI(nsIURI* aURI, int32_t aDelay, bool aMetaRefresh, nsI
   nsCOMPtr<nsIPrincipal> principal = aPrincipal;
   if (!principal) {
     nsCOMPtr<nsIDocument> doc = GetDocument();
-    if (!doc) {
+    if (MOZ_UNLIKELY(!doc)) {
       return NS_ERROR_FAILURE;
     }
     principal = doc->NodePrincipal();
   }
-  loadInfo->SetTriggeringPrincipal(principal);
+  loadInfo->SetOwner(principal); // equivalent for SetTriggeringPrincipal
   loadInfo->SetPrincipalIsExplicit(true);
 
   /* Check if this META refresh causes a redirection
