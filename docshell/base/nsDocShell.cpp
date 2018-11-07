@@ -6816,7 +6816,7 @@ nsDocShell::ForceRefreshURI(nsIURI* aURI, int32_t aDelay, bool aMetaRefresh, nsI
     }
     principal = doc->NodePrincipal();
   }
-  loadInfo->SetOwner(principal); // equivalent for SetTriggeringPrincipal
+  loadInfo->SetTriggeringPrincipal(principal);
   loadInfo->SetPrincipalIsExplicit(true);
 
   /* Check if this META refresh causes a redirection
