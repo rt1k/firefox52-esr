@@ -21,6 +21,8 @@
 # include "jit/mips64/SharedICRegisters-mips64.h"
 #elif defined(JS_CODEGEN_NONE)
 # include "jit/none/SharedICRegisters-none.h"
+#elif defined(JS_CODEGEN_PPC)
+# include "jit/ppc/SharedICRegisters-arm.h"
 #else
 # error "Unknown architecture!"
 #endif

@@ -847,7 +847,7 @@ ICStubCompiler::emitPostWriteBarrierSlot(MacroAssembler& masm, Register obj, Val
     masm.branchValueIsNurseryObject(Assembler::NotEqual, val, scratch, &skipBarrier);
 
     // void PostWriteBarrier(JSRuntime* rt, JSObject* obj);
-#if defined(JS_CODEGEN_ARM) || defined(JS_CODEGEN_MIPS32) || defined(JS_CODEGEN_MIPS64)
+#if defined(JS_CODEGEN_ARM) || defined(JS_CODEGEN_MIPS32) || defined(JS_CODEGEN_MIPS64) || defined(JS_CODEGEN_PPC)
     saveRegs.add(ICTailCallReg);
 #endif
     saveRegs.set() = GeneralRegisterSet::Intersect(saveRegs.set(), GeneralRegisterSet::Volatile());

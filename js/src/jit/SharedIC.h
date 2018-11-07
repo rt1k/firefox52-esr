@@ -1068,6 +1068,10 @@ class ICStubCompiler
         MOZ_ASSERT(!regs.has(PseudoStackPointer));
         MOZ_ASSERT(!regs.has(RealStackPointer));
         MOZ_ASSERT(!regs.has(ICTailCallReg));
+#if defined(JS_CODEGEN_PPC)
+        MOZ_ASSERT(!regs.has(BaselineStackReg));
+        MOZ_ASSERT(!regs.has(ICTailCallReg));
+        regs.take(BaselineSecondScratchReg)
 #else
         MOZ_ASSERT(!regs.has(BaselineStackReg));
 #endif
