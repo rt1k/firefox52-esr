@@ -326,7 +326,11 @@ AtomicOperations::isLockfree(int32_t size)
 # include "jit/arm64/AtomicOperations-arm64.h"
 #elif defined(JS_CODEGEN_MIPS32) || defined(JS_CODEGEN_MIPS64)
 # include "jit/mips-shared/AtomicOperations-mips-shared.h"
-#elif defined(__ppc__) || defined(__PPC__)
+#elif defined(JS_CODEGEN_PPC)
+# include "jit/ppc/AtomicOperations-ppc.h"
+#elif defined(__ppc64__) || defined(__PPC64_)       \
+    || defined(__ppc64le__) || defined(__PPC64LE__) \
+    || defined(__ppc__) || defined(__PPC__)
 # include "jit/none/AtomicOperations-ppc.h"
 #elif defined(__sparc__)
 # include "jit/none/AtomicOperations-sparc.h"
@@ -337,8 +341,8 @@ AtomicOperations::isLockfree(int32_t size)
   // C++ realizations of atomics.  These operations cannot be written
   // in portable C++, hence the default here is to crash.  See the
   // top of the file for more guidance.
-# if defined(__ppc64__) || defined(__PPC64__) || defined(__ppc64le__) || defined(__PPC64LE__)
-#  include "jit/none/AtomicOperations-ppc.h"
+//# if defined(__ppc64__) || defined(__PPC64__) || defined(__ppc64le__) || defined(__PPC64LE__)
+//#  include "jit/none/AtomicOperations-ppc.h"
 # elif defined(__aarch64__)
 #  include "jit/arm64/AtomicOperations-arm64.h"
 # elif defined(__s390__)

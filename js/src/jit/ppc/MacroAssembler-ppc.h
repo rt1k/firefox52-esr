@@ -22,7 +22,7 @@
 #include "jit/AtomicOp.h"
 #include "jit/IonCaches.h"
 #include "jit/JitFrames.h"
-#include "jit/osxppc/Assembler-ppc.h"
+#include "jit/ppc/Assembler-ppc.h"
 #include "jit/MoveResolver.h"
 #define PPC_USE_UNSIGNED_COMPARE(x) (x & Assembler::ConditionUnsigned)
 

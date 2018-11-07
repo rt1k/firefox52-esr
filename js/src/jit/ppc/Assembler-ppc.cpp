@@ -14,7 +14,7 @@
 
  */
 
-#include "jit/osxppc/Assembler-ppc.h"
+#include "jit/ppc/Assembler-ppc.h"
 
 #include "mozilla/DebugOnly.h"
 #include "mozilla/MathAlgorithms.h"
@@ -28,7 +28,7 @@
 
 using mozilla::DebugOnly;
 
-#if JS_CODEGEN_PPC_OSX
+#if JS_CODEGEN_PPC
 /* AsmJS stubs for non-AsmJS (big endian, basically). */
 namespace js {
 

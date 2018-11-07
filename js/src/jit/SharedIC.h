@@ -1068,13 +1068,14 @@ class ICStubCompiler
         MOZ_ASSERT(!regs.has(PseudoStackPointer));
         MOZ_ASSERT(!regs.has(RealStackPointer));
         MOZ_ASSERT(!regs.has(ICTailCallReg));
-#if defined(JS_CODEGEN_PPC)
-        MOZ_ASSERT(!regs.has(BaselineStackReg));
+#elif defined(JS_CODEGEN_PPC)
+        // r0, r1 and r12 are explicitly non-allocatable, so we just cover the
+        // rest. FrameReg and StubReg are allocated below.
         MOZ_ASSERT(!regs.has(ICTailCallReg));
-        regs.take(BaselineSecondScratchReg)
 #else
         MOZ_ASSERT(!regs.has(BaselineStackReg));
 #endif
+
         regs.take(BaselineFrameReg);
         regs.take(ICStubReg);
 #ifdef JS_CODEGEN_X64

@@ -7,7 +7,7 @@
 #ifndef jit_ppc_CodeGenerator_ppc_h
 #define jit_ppc_CodeGenerator_ppc_h
 
-#include "jit/osxppc/Assembler-ppc.h"
+#include "jit/ppc/Assembler-ppc.h"
 #include "jit/shared/CodeGenerator-shared.h"
 
 namespace js {

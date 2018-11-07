@@ -25,8 +25,8 @@
 #include "jit/Linker.h"
 #include "jit/JitCompartment.h"
 #include "jit/JitSpewer.h"
-#include "jit/osxppc/Bailouts-ppc.h"
-#include "jit/osxppc/SharedICHelpers-ppc.h"
+#include "jit/ppc/Bailouts-ppc.h"
+#include "jit/ppc/SharedICHelpers-ppc.h"
 #include "jit/MacroAssembler-inl.h"
 #ifdef JS_ION_PERF
 # include "jit/PerfSpewer.h"

@@ -7,7 +7,7 @@
 #ifndef jit_mips32_MacroAssembler_ppc_inl_h
 #define jit_mips32_MacroAssembler_ppc_inl_h
 
-#include "jit/osxppc/MacroAssembler-ppc.h"
+#include "jit/ppc/MacroAssembler-ppc.h"
 
 namespace js {
 namespace jit {

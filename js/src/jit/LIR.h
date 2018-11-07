@@ -1933,7 +1933,9 @@ LAllocation::toRegister() const
 # if defined(JS_CODEGEN_MIPS32)
 #  include "jit/mips32/LIR-mips32.h"
 # elif defined(JS_CODEGEN_MIPS64)
-#  include "jit/mips64/LIR-mips64.h"
+#  include "jit/mips64/LIR-ppc.h"
+# elif defined(JS_CODEGEN_MIPS64)
+#  include "jit/ppc/LIR-ppc.h"
 # endif
 # include "jit/mips-shared/LIR-mips-shared.h"
 #elif defined(JS_CODEGEN_NONE)

@@ -14,7 +14,7 @@
  
  */
 
-#include "jit/osxppc/MacroAssembler-ppc.h"
+#include "jit/ppc/MacroAssembler-ppc.h"
 
 #include "mozilla/DebugOnly.h"
 #include "mozilla/MathAlgorithms.h"

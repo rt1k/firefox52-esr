@@ -63,6 +63,10 @@ extern  "C" void sync_instruction_memory(caddr_t v, u_int len);
 #endif
 #endif
 
+#ifdef JS_CPU_PPC
+extern "C" void sys_icache_invalidate(const void *Addr, size_t len);
+#endif
+
 #if defined(__linux__) &&                                             \
      (defined(JS_CODEGEN_MIPS32) || defined(JS_CODEGEN_MIPS64)) &&    \
      (!defined(JS_SIMULATOR_MIPS32) && !defined(JS_SIMULATOR_MIPS64))

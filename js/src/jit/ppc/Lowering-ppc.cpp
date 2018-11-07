@@ -7,7 +7,7 @@
 #include "mozilla/MathAlgorithms.h"
 
 #include "jit/Lowering.h"
-#include "jit/osxppc/Assembler-ppc.h"
+#include "jit/ppc/Assembler-ppc.h"
 #include "jit/MIR.h"
 
 #include "jit/shared/Lowering-shared-inl.h"

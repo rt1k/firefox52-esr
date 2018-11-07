@@ -25,7 +25,7 @@
 #include "jit/IonCode.h"
 #include "jit/JitCompartment.h"
 #include "jit/JitSpewer.h"
-#include "jit/osxppc/Architecture-ppc.h"
+#include "jit/ppc/Architecture-ppc.h"
 #include "jit/shared/Assembler-shared.h"
 #include "jit/shared/IonAssemblerBuffer.h"
 
