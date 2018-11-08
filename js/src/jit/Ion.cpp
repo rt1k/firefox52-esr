@@ -9,7 +9,7 @@
 #include "mozilla/IntegerPrintfMacros.h"
 #include "mozilla/MemoryReporting.h"
 #include "mozilla/SizePrintfMacros.h"
-#include "mozi	lla/ThreadLocal.h"
+#include "mozilla/ThreadLocal.h"
 
 #include "jscompartment.h"
 #include "jsgc.h"
