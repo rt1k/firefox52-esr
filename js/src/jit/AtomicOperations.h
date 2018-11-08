@@ -341,16 +341,16 @@ AtomicOperations::isLockfree(int32_t size)
   // C++ realizations of atomics.  These operations cannot be written
   // in portable C++, hence the default here is to crash.  See the
   // top of the file for more guidance.
-//# if defined(__ppc64__) || defined(__PPC64__) || defined(__ppc64le__) || defined(__PPC64LE__)
-//#  include "jit/none/AtomicOperations-ppc.h"
+# if defined(__ppc64__) || defined(__PPC64__) || defined(__ppc64le__) || defined(__PPC64LE__)
+#  include "jit/none/AtomicOperations-ppc.h"
 # elif defined(__aarch64__)
 #  include "jit/arm64/AtomicOperations-arm64.h"
 # elif defined(__s390__)
   // The sparc file is more or less generic and works on s390x.
 #  include "jit/none/AtomicOperations-sparc.h"
-# else
+# else	
 #  include "jit/none/AtomicOperations-none.h" // These MOZ_CRASH() always
-# endif
+#endif
 #elif defined(JS_CODEGEN_X86) || defined(JS_CODEGEN_X64)
 # include "jit/x86-shared/AtomicOperations-x86-shared.h"
 #else

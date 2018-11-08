@@ -1025,7 +1025,7 @@ CodeGenerator::visitValueToString(LValueToString* lir)
     const JSAtomState& names = GetJitContext()->runtime->names();
 
     // String
-    if (lir->mir()->input()->mightBeType(MIRType_String)) {
+    if (lir->mir()->input()->mightBeType(MIRType::String)) {
 #ifndef JS_CODEGEN_PPC
         Label notString;
         masm.branchTestString(Assembler::NotEqual, tag, &notString);
@@ -1041,7 +1041,7 @@ CodeGenerator::visitValueToString(LValueToString* lir)
     }
 
     // Integer
-    if (lir->mir()->input()->mightBeType(MIRType_Int32)) {
+    if (lir->mir()->input()->mightBeType(MIRType::Int32)) {
 #ifndef JS_CODEGEN_PPC
         Label notInteger;
         masm.branchTestInt32(Assembler::NotEqual, tag, &notInteger);
@@ -1068,7 +1068,7 @@ CodeGenerator::visitValueToString(LValueToString* lir)
     }
 
     // Undefined
-    if (lir->mir()->input()->mightBeType(MIRType_Undefined)) {
+    if (lir->mir()->input()->mightBeType(MIRType::Undefined)) {
 #ifndef JS_CODEGEN_PPC
         Label notUndefined;
         masm.branchTestUndefined(Assembler::NotEqual, tag, &notUndefined);
@@ -1084,7 +1084,7 @@ CodeGenerator::visitValueToString(LValueToString* lir)
     }
 
     // Null
-    if (lir->mir()->input()->mightBeType(MIRType_Null)) {
+    if (lir->mir()->input()->mightBeType(MIRType::Null)) {
 #ifndef JS_CODEGEN_PPC
         Label notNull;
         masm.branchTestNull(Assembler::NotEqual, tag, &notNull);
@@ -1100,7 +1100,7 @@ CodeGenerator::visitValueToString(LValueToString* lir)
     }
 
     // Boolean
-    if (lir->mir()->input()->mightBeType(MIRType_Boolean)) {
+    if (lir->mir()->input()->mightBeType(MIRType::Boolean)) {
 #ifndef JS_CODEGEN_PPC
         Label notBoolean, true_;
         masm.branchTestBoolean(Assembler::NotEqual, tag, &notBoolean);

@@ -1009,9 +1009,10 @@ MacroAssembler::allocateObject(Register result, Register temp, gc::AllocKind all
     if (!nDynamicSlots)
         return freeListAllocate(result, temp, allocKind, fail);
 
-    callMallocStub(nDynamicSlots * sizeof(HeapValue), temp, fail);
+    //callMallocStub(nDynamicSlots * sizeof(HeapValue), temp, fail);
+	callMallocStub(nDynamicSlots * sizeof(GCPtrValue), temp, fail);
 
-#ifdef JS_CODEGEN_PPC
+	#ifdef JS_CODEGEN_PPC
     // Partially inline freeListAllocate here, since we can
     // optimize the branching even further.
     BufferOffset failAlloc, fallback, success1, success2;
