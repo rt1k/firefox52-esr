@@ -19046,7 +19046,7 @@ if test -n "$USE_ICU"; then
     # TODO: the l is actually endian-dependent
     # We could make this set as 'l' or 'b' for little or big, respectively,
     # but we'd need to check in a big-endian version of the file.
-    ICU_DATA_FILE="icudt${version}l.dat"
+    ICU_DATA_FILE="icudt${version}b.dat"
 
                         if test -z "$JS_STANDALONE" -a -z "$MOZ_SYSTEM_ICU" -a "$OS_TARGET" != WINNT -a "$MOZ_WIDGET_TOOLKIT" != "android"; then
         MOZ_ICU_DATA_ARCHIVE=1
