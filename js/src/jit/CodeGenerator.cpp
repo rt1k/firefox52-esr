@@ -1620,6 +1620,81 @@ CreateDependentString::generate(MacroAssembler& masm, const JSAtomState& names,
 #endif
 }
 
+static void*
+AllocateString(JSContext* cx)
+{
+    return js::Allocate<JSString, NoGC>(cx);
+}
+
+static void*
+AllocateFatInlineString(JSContext* cx)
+{
+    return js::Allocate<JSFatInlineString, NoGC>(cx);
+}
+
+void
+CreateDependentString::generateFallback(MacroAssembler& masm, LiveRegisterSet regsToSave)
+{
+    regsToSave.take(string_);
+    regsToSave.take(temp_);
+    for (FallbackKind kind : mozilla::MakeEnumeratedRange(FallbackKind::Count)) {
+        masm.bind(&fallbacks_[kind]);
+
+        masm.PushRegsInMask(regsToSave);
+
+        masm.setupUnalignedABICall(string_);
+        masm.loadJSContext(string_);
+        masm.passABIArg(string_);
+        masm.callWithABI(kind == FallbackKind::FatInlineString
+                         ? JS_FUNC_TO_DATA_PTR(void*, AllocateFatInlineString)
+                         : JS_FUNC_TO_DATA_PTR(void*, AllocateString));
+        masm.storeCallPointerResult(string_);
+
+        masm.PopRegsInMask(regsToSave);
+
+        masm.branchPtr(Assembler::Equal, string_, ImmWord(0), failure_);
+
+        masm.jump(&joins_[kind]);
+    }
+}
+
+static void*
+CreateMatchResultFallbackFunc(JSContext* cx, gc::AllocKind kind, size_t nDynamicSlots)
+{
+    return js::Allocate<JSObject, NoGC>(cx, kind, nDynamicSlots, gc::DefaultHeap,
+                                        &ArrayObject::class_);
+}
+
+static void
+CreateMatchResultFallback(MacroAssembler& masm, LiveRegisterSet regsToSave,
+                          Register object, Register temp2, Register temp5,
+                          ArrayObject* templateObj, Label* fail)
+{
+    MOZ_ASSERT(templateObj->group()->clasp() == &ArrayObject::class_);
+
+    regsToSave.take(object);
+    regsToSave.take(temp2);
+    regsToSave.take(temp5);
+    masm.PushRegsInMask(regsToSave);
+
+    masm.setupUnalignedABICall(object);
+
+    masm.loadJSContext(object);
+    masm.passABIArg(object);
+    masm.move32(Imm32(int32_t(templateObj->asTenured().getAllocKind())), temp2);
+    masm.passABIArg(temp2);
+    masm.move32(Imm32(int32_t(templateObj->as<NativeObject>().numDynamicSlots())), temp5);
+    masm.passABIArg(temp5);
+    masm.callWithABI(JS_FUNC_TO_DATA_PTR(void*, CreateMatchResultFallbackFunc));
+    masm.storeCallPointerResult(object);
+
+    masm.PopRegsInMask(regsToSave);
+
+    masm.branchPtr(Assembler::Equal, object, ImmWord(0), fail);
+
+    masm.initGCThing(object, temp2, templateObj, true, false);
+}
+
 JitCode*
 JitCompartment::generateRegExpMatcherStub(JSContext* cx)
 {
