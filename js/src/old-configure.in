@@ -965,7 +965,13 @@ mips*-*)
     ENABLE_ION=1
     AC_DEFINE(JS_CPU_MIPS)
     ;;
+powerpc*-*-*)
+    ENABLE_ION=1
+    AC_DEFINE(JS_CPU_PPC_OSX)
+    ;;
 esac
+
+
 
 if test "$HAVE_64BIT_BUILD" ; then
     AC_DEFINE(JS_PUNBOX64)
@@ -1769,8 +1775,8 @@ fi
 dnl Hey, Mozilla, bite me.
 dnl Eventually we will expunge the old JS_CPU_PPC_OSX.
 dnl
-AC_SUBST(JS_CODEGEN_PPC_OSX)
-AC_SUBST(JS_CPU_PPC_OSX)
+AC_SUBST(JS_CODEGEN_PPC)
+AC_SUBST(JS_CPU_PPC)
 
 AC_SUBST(JS_SIMULATOR)
 AC_SUBST(JS_SIMULATOR_ARM)
