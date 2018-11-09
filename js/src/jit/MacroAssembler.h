@@ -145,6 +145,9 @@ using mozilla::FloatingPoint;
 # define DEFINED_ON_mips64 define
 # undef DEFINED_ON_mips_shared
 # define DEFINED_ON_mips_shared define
+#elif defined(JS_CODEGEN_PPC)
+# undef DEFINED_ON_ppc
+# define DEFINED_ON_ppc define
 #elif defined(JS_CODEGEN_NONE)
 # undef DEFINED_ON_none
 # define DEFINED_ON_none crash
