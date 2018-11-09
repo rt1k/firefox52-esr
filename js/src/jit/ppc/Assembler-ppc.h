@@ -111,8 +111,6 @@ static constexpr Register HeapReg = r21; // Ditto.
 static constexpr Register CallTempNonArgRegs[] = { r10, r9, r8, r7 };
 static const uint32_t NumCallTempNonArgRegs = mozilla::ArrayLength(CallTempNonArgRegs);
 
-static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
-
 class ABIArgGenerator
 {
 	uint32_t stackOffset_;
@@ -148,6 +146,8 @@ static constexpr Register JSReturnReg_Data = r5;
 static constexpr Register ReturnReg = r3;
 static constexpr FloatRegister ReturnFloat32Reg = f1;
 static constexpr FloatRegister ReturnDoubleReg = f1;
+
+static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
 
 // Gawd, Mozilla. Must FPRs be vector registers in all your damn architectures?
 static constexpr FloatRegister ReturnSimdReg = InvalidFloatReg;
