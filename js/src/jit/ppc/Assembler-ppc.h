@@ -147,7 +147,7 @@ static constexpr Register ReturnReg = r3;
 static constexpr FloatRegister ReturnFloat32Reg = f1;
 static constexpr FloatRegister ReturnDoubleReg = f1;
 
-static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
+//static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
 
 // Gawd, Mozilla. Must FPRs be vector registers in all your damn architectures?
 static constexpr FloatRegister ReturnSimdReg = InvalidFloatReg;
