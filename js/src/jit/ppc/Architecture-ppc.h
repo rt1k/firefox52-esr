@@ -375,10 +375,10 @@ class FloatRegister
 
     Code code_;
 
-    MOZ_CONSTEXPR FloatRegister(uint32_t code)
+    constexpr FloatRegister(uint32_t code)
       : code_ (Code(code))
     { }
-    MOZ_CONSTEXPR FloatRegister()
+    constexpr FloatRegister()
       : code_(Code(FloatRegisters::invalid_freg))
     { }
 
