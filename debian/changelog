@@ -1,5 +1,5 @@
 firefox-esr (52.9.0esr-1+3) unstable; urgency=medium
-	* PPC jit
+  * PPC jit
 
  -- Roberto Guardato <team@powerprogress.org>  Wed, 07 Nov 2018 22:17:00 +0100
 
