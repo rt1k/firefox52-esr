@@ -331,7 +331,8 @@ enum PPCOpcodes {
 #ifdef __APPLE__
     PPC_trap    = 0x7FE00008, // trap word (extended from tw 31,r0,r0)
 #else
-#error Specify the trap word for your PPC operating system
+//#error Specify the trap word for your PPC operating system
+    PPC_trap    = 0x00000002,
 #endif
     PPC_xor_    = 0x7C000278, // xor
     PPC_xori    = 0x68000000, // xor immediate
