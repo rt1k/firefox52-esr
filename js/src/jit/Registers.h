@@ -21,7 +21,7 @@
 #elif defined(JS_CODEGEN_MIPS64)
 # include "jit/mips64/Architecture-mips64.h"
 #elif defined(JS_CODEGEN_PPC)
-# include "jit/ppc/Architecture-mips64.h"
+# include "jit/ppc/Architecture-ppc.h"
 #elif defined(JS_CODEGEN_NONE)
 # include "jit/none/Architecture-none.h"
 #else
