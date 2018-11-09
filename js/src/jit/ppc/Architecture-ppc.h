@@ -76,7 +76,7 @@ class Registers
         r31,
         invalid_reg
     };
-    typedef RegisterID Code;
+    typedef uint8_t Code;
     typedef RegisterID Encoding;
     
     // Content spilled during bailouts.
