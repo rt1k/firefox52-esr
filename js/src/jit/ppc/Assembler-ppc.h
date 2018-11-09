@@ -111,6 +111,8 @@ static constexpr Register HeapReg = r21; // Ditto.
 static constexpr Register CallTempNonArgRegs[] = { r10, r9, r8, r7 };
 static const uint32_t NumCallTempNonArgRegs = mozilla::ArrayLength(CallTempNonArgRegs);
 
+static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
+
 class ABIArgGenerator
 {
 	uint32_t stackOffset_;

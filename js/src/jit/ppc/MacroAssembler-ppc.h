@@ -69,8 +69,6 @@ struct ImmType : public ImmTag
     { }
 };
 
-static const ValueOperand JSReturnOperand = ValueOperand(JSReturnReg_Type, JSReturnReg_Data);
-
 static Register CallReg = r12; // This appears to be specific to AsmJS.
 static const int defaultShift = 3;
 static const uint32_t LOW_32_MASK = 0xffffffff; // (1LL << 32) - 1;
