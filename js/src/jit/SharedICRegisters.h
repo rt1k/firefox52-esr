@@ -22,7 +22,7 @@
 #elif defined(JS_CODEGEN_NONE)
 # include "jit/none/SharedICRegisters-none.h"
 #elif defined(JS_CODEGEN_PPC)
-# include "jit/ppc/SharedICRegisters-arm.h"
+# include "jit/ppc/SharedICRegisters-ppc.h"
 #else
 # error "Unknown architecture!"
 #endif
